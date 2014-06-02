@@ -29,8 +29,8 @@ int main(int argc, char * argv[])
     } else brightness = brightness_max;
 
     /* Clamp */
-    if (brightness > brightness_max)
-        brightness = brightness_max;
+    if (brightness > 100)
+        brightness = 100;
 
     /* Set value */
     fp = fopen(set_file, "w");
@@ -38,7 +38,7 @@ int main(int argc, char * argv[])
         perror("Can't open file for write");
         exit(2);
     }
-    fprintf(fp, "%u\n", brightness);
+    fprintf(fp, "%u\n", brightness * brightness_max / 100);
     fclose(fp);
 
     return 0;
