@@ -1,5 +1,6 @@
 CC = gcc
 CCFLAGS = -Wall
+TYPE = INTEL
 
 SRC = $(wildcard *.c)
 
@@ -7,7 +8,7 @@ all: blight
 
 blight: $(SRC)
 	@echo "CC $@"
-	@$(CC) $(CCFLAGS) $(SRC) -o $@
+	@$(CC) $(CCFLAGS) -D$(TYPE) $(SRC) -o $@
 
 install: blight
 	cp blight /usr/local/bin/

@@ -1,7 +1,13 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#ifdef INTEL
 #define BPATH "/sys/class/backlight/intel_backlight"
+#elif ACPI
+#define BPATH "/sys/class/backlight/acpi_video0/"
+#else
+#error Please select backlight type
+#endif
 const char set_file[] = BPATH "/brightness";
 const char max_file[] = BPATH "/max_brightness";
 
@@ -26,11 +32,11 @@ int main(int argc, char * argv[])
             fprintf(stderr, "Invalid argument\n");
             exit(3);
         }
-    } else brightness = brightness_max;
 
-    /* Clamp */
-    if (brightness > 100)
-        brightness = 100;
+        /* Clamp */
+        if (brightness > 100)
+            brightness = 100;
+    } else brightness = 100;
 
     /* Set value */
     fp = fopen(set_file, "w");
