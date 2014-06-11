@@ -11,9 +11,7 @@ blight: $(SRC)
 	@$(CC) $(CCFLAGS) -D$(TYPE) $(SRC) -o $@
 
 install: blight
-	cp blight /usr/local/bin/
-	chown root:root /usr/local/bin/blight
-	chmod +sx /usr/local/bin/blight
+	install -o root -g root -m 6755 blight $(PREFIX)/bin
 
 .PHONY: all clean
 
