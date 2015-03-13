@@ -14,7 +14,7 @@ const char max_file[] = BPATH "/max_brightness";
 int main(int argc, char * argv[])
 {
     FILE * fp;
-    unsigned brightness;
+    float brightness;
     unsigned brightness_max;
 
     /* Read max value */
@@ -28,15 +28,21 @@ int main(int argc, char * argv[])
 
     /* Parse arg */
     if (argc >= 2) {
-        if (sscanf(argv[1], "%u\n", &brightness) == EOF) {
-            fprintf(stderr, "Invalid argument\n");
-            exit(3);
+        if (sscanf(argv[1], "%f\n", &brightness) == EOF) {
+            unsigned temp_brightness;
+            if (sscanf(argv[1], "%u\n", &temp_brightness) == EOF) {
+                    fprintf(stderr, "Invalid argument\n");
+                    exit(3);
+            }
+            brightness=temp_brightness;
         }
 
         /* Clamp */
-        if (brightness > 100)
-            brightness = 100;
-    } else brightness = 100;
+        if (brightness > 100.)
+            brightness = 100.;
+        if (brightness < 0.)
+            brightness = 0.;
+    } else brightness = 100.;
 
     /* Set value */
     fp = fopen(set_file, "w");
@@ -44,7 +50,7 @@ int main(int argc, char * argv[])
         perror("Can't open file for write");
         exit(2);
     }
-    fprintf(fp, "%u\n", brightness * brightness_max / 100);
+    fprintf(fp, "%u\n", (unsigned)(int)(brightness * brightness_max / 100.));
     fclose(fp);
 
     return 0;
