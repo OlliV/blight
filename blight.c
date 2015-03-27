@@ -34,7 +34,7 @@ int main(int argc, char * argv[])
                     fprintf(stderr, "Invalid argument\n");
                     exit(3);
             }
-            brightness=temp_brightness;
+            brightness = temp_brightness;
         }
 
         /* Clamp */
@@ -50,7 +50,7 @@ int main(int argc, char * argv[])
         perror("Can't open file for write");
         exit(2);
     }
-    fprintf(fp, "%u\n", (unsigned)(int)(brightness * brightness_max / 100.));
+    fprintf(fp, "%u\n", (unsigned)(brightness * brightness_max / 100.));
     fclose(fp);
 
     return 0;
