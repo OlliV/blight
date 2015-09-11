@@ -4,7 +4,7 @@
 #ifdef INTEL
 #define BPATH "/sys/class/backlight/intel_backlight"
 #elif ACPI
-#define BPATH "/sys/class/backlight/acpi_video0/"
+#define BPATH "/sys/class/backlight/acpi_video0"
 #else
 #error Please select backlight type
 #endif
